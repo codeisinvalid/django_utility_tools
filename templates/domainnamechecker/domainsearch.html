@@ -1,0 +1,156 @@
+<!-- domain_search.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="text-center mb-4">
+                <h1>Search for a domain name</h1>
+                <p class="lead">Find your perfect domain name for your website or business.</p>
+            </div>
+            <form method="post" id="domain-search-form">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="input-group mb-3">
+                    {{ form.domain_name.errors }}
+                    {{ form.domain_name }}
+                    
+                    <div class="input-group-append">
+                        <button class="btn btn-primary btn-lg" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container mb-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center mb-4">Discover a huge variety of domains</h2>
+                <p class="text-center">Check domain name availability and secure yours now.</p>
+                <div class="text-center">
+                    {% comment %} <button class="btn btn-outline-primary mr-2">Popular</button> {% endcomment %}
+                    {% comment %} <button class="btn btn-outline-primary">Deals</button> {% endcomment %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="row mt-5 mb-2">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Status</h5>
+
+                    {% if whois_info and whois_info.status %}
+                    <p class="card-text text-danger">Not Available</p>
+                    
+
+                    {% else %}
+                    <p class="card-text text-success">Available</p>
+                    
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+   
+
+
+    
+
+
+    
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+            
+                {% if whois_info and whois_info.status %}
+                <div class="result-card">
+                    <div class="title">{{domain_name}}</div>
+                    <div class="price">Owner: <strong>{{whois_info.name}}</strong></div>
+                    <div class="price">Registrant: <strong>{{whois_info.registrant_name}}</strong></div>
+                    <div class="price">Expiration Date: <small>{{expiration_dates_text}}</small></div>
+                    {% for server in whois_info.name_servers %}
+                    
+                    <div class="price">NameServer: <small>{{server}}</small></div>
+                    
+                    {% endfor %}
+
+                    <span class="badge badge-pill badge-danger">Not Available</span>
+                    
+                </div>
+
+                {% else %}
+                <div class="result-card">
+                    <div class="title">{{domain_name}}</div>
+                    <div class="price">Owner: <strong>{{whois_info.name}}</strong></div>
+                    <div class="price">Registrant: <strong>{{whois_info.registrant_name}}</strong></div>
+                    <div class="price">Expiration Date: <small>{{expiration_dates_text}}</small></div>
+                    {% for server in whois_info.name_servers %}
+                    
+                    <div class="price">NameServer: <small>{{server}}</small></div>
+                    
+                    {% endfor %}
+                    
+                    <span class="badge badge-pill badge-success"> Available</span>
+                </div>
+
+
+                {% endif %}
+
+                {% comment %} <div class="d-flex justify-content-between mb-3">
+                    <a href="#" class="btn btn-outline-primary">Domains</a>
+                    <a href="#" class="btn btn-outline-primary">Auctions</a>
+                    <a href="#" class="btn btn-outline-primary">Handshake</a>
+                </div> {% endcomment %}
+                <h5>Suggested Results</h5>
+                <div class="result-card">
+                    <div class="title">whoisthisguy.com</div>
+                    <div class="price">₹416,790.64 <small>Renews at ₹1,323.99/yr</small></div>
+                    <span class="badge badge-pill badge-primary">PREMIUM</span>
+                    <button class="btn btn-sm btn-primary float-right">Add to Cart</button>
+                </div>
+                <div class="result-card">
+                    <div class="title">whoisthisguy.org</div>
+                    <div class="price">₹623.64/yr <small>Retail ₹1,082.20/yr</small></div>
+                    <span class="badge badge-pill badge-success">42% OFF</span>
+                    <button class="btn btn-sm btn-primary float-right">Add to Cart</button>
+                </div>
+                <div class="result-card">
+                    <div class="title">whoisthisguy.bot</div>
+                    <div class="price">₹5,417.69 <small>Renews at ₹5,584.44/yr</small></div>
+                    <span class="badge badge-pill badge-info">NEW</span>
+                    <button class="btn btn-sm btn-primary float-right">Add to Cart</button>
+                </div>
+                <div class="result-card">
+                    <div class="title">whoisthisguy.ai</div>
+                    <div class="price">₹6,668.32/yr <small>Retail ₹7,502.06/yr</small></div>
+                    <span class="badge badge-pill badge-warning">11% OFF</span>
+                    <button class="btn btn-sm btn-primary float-right">Add to Cart</button>
+                </div>
+                <div class="result-card">
+                    <div class="title">SSL</div>
+                    <div class="price">₹917.12/yr</div>
+                    <span class="badge badge-pill badge-success">42% OFF</span>
+                    <button class="btn btn-sm btn-primary float-right">Add to Cart</button>
+                </div>
+                <div class="text-center mb-3">
+                    <a href="#" class="btn btn-primary btn-lg">Explore More</a>
+                </div>
+
+                
+            </div>
+            
+            
+        </div>
+    
+</div>
+{% endblock %}
+
