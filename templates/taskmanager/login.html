@@ -3,26 +3,19 @@
 
 {% block content %}
 
-<div class="container my-5">
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <div class="text-center mb-4">
-                <div class="result-card">
-                    <div class="title">Login</div>
-                    <form method = "POST">
-                        {% csrf_token %}
-                        <div class="input-group mb-3">
-                            {{form.as_p}}
-                            <div class="input-group-append">
-                                <input class = 'btn btn-sm btn-outline-primary float-right' type="submit" value = "Login">
-                            </div>
-                        </div>
-                    </form>
-                    <p>Don't have an account?<a href="{% url 'register' %}" class="btn btn-sm btn-outline-primary float-right">Register</a></p>
-                </div>
-            </div>
-        </div>
-    </div>  
+<div class="header-bar">
+    <h1>Login</h1>
+</div>
+
+<div class="card-body">
+    <form method = "POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input class = 'button' type="submit" value = "Login">
+    </form>
+
+    <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+    
 </div>
 
 {% comment %} 

@@ -3,17 +3,14 @@
 {% block content %}
 
 <div class="header-bar">
+    {% comment %} <h1>Hello {{request.user|title}}</h1> {% endcomment %}
 
-    <div>
-        <h1>Hello {{request.user|title}}</h1>
+    
+        
         <h3 style="margin:0">You have <i>{{count}}</i> incomplete task{{ count|pluralize:"s" }}</h3>
-    </div>
+    
 
-    {% if request.user.is_authenticated %}
-    <a href="{%url 'logout' %}">Logout</a>
-    {% else %}
-    <a href="{% url 'login' %}">Login</a>
-    {% endif %}
+    
 
 </div>
 
@@ -21,7 +18,7 @@
 
     <form method="GET" style="display: flex;">
         <input type='text' name='search-area' placeholder="Search your task" value="{{search_input}}">
-        <input class="button" style="float: right;"type="submit" value='Search'>
+        <input class="button" type="submit" value='Search'>
     </form>
 
     {% if tasks|length > 0 %}
@@ -51,6 +48,16 @@
         <h3>Create a <a style="text-decoration: none; color: #e53935;" href="{% url 'task-create' %}">New task</a> ! </h3>
     </div>
     {% endfor %}
+</div>
+<div class="card-body">
+    {% if request.user.is_authenticated %}
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button class = "button" type="submit">Logout</button>
+    </form>
+    {% else %}
+    <a class = "button" href="{% url 'login' %}">Login</a>
+    {% endif %}
 </div>
 
 {% endblock content %}
