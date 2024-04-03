@@ -23,4 +23,5 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('domain-search/', include('domainnamechecker.urls')),
     path('task-manager/', include('taskmanager.urls')),   
+    path('url-shortener/', include('urlshortener.urls')),   
 ]

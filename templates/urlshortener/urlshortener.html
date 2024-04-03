@@ -8,8 +8,8 @@
     <div class="row">
         <div class="col-md-8 offset-md-2">
             <div class="text-center mb-4">
-                <h1>Search for a domain name</h1>
-                <p class="lead">Find your perfect domain name for your website or business.</p>
+                <h1>miniURLs-URL Shortener Service</h1>
+                <p class="lead">URL shortener tool provided made with &#x2764;</p>
             </div>
             <form method="post" id="domain-search-form">
                 {% csrf_token %}
@@ -41,15 +41,13 @@
     
         <div class="row">
             <div class="col-md-8 offset-md-2">
-                {% if invalid_message %}
-                <h5>{{invalid_message}}</h5>
+                <h5></h5>
                 
-                {% endif %}
 
-                {% if result.isAvailable %}
+                
                 <h5>Your Results</h5>
                 <div class="result-card">
-                    <div class="title">{{domain_name}}</div>
+                    <div class="title">TItle</div>
                     
                     <div class="price">Eureka! <small> with love</small></div>
                     <br>
@@ -57,24 +55,19 @@
                     <a href="#" class="btn btn-sm btn-outline-primary float-right">Register your domain now</a>
                 </div>
 
-                {% elif result.isAvailable == None %}
                 
                 
-                {% else %}
                 
                 <h5>Your Results</h5>
                 <div class="result-card">
-                    <div class="title">{{domain_name}}</div>
-                    <div class="price">Registrant: <strong>{{whois_info.name}}</strong></div>
-                    <div class="price">Expiration Date: <small>{{expiration_dates_text}}</small></div>
-                    {% for server in whois_info.name_servers %}
-                    <div class="price">Nameserver: <small>{{server}}</small></div>
-                    {% endfor %}
+                    <div class="title"></div>
+                    <div class="price">Registrant: <strong></strong></div>
+                    <div class="price">Expiration Date: <small></small></div>
+                    <div class="price">Nameserver: <small></small></div>
                     <span class="badge badge-pill badge-danger">NOT AVAILABLE</span>
                     
                 </div>
 
-                {% endif %}
 
                 <br>
 
@@ -85,20 +78,16 @@
                 </div> {% endcomment %}
                 
 
-                {% for suggestion in domain_suggestions %}
-                {% if suggestion != domain_name %}
-                
+               
                 
                 <div class="result-card">
-                    <div class="title">{{suggestion}}</div>
+                    <div class="title"></div>
                     <div class="price">₹416,790.64 <small>Renews at ₹1,323.99/yr</small></div>
                     <span class="badge badge-pill badge-success">AVAILABLE</span>
                     <button class="btn btn-sm btn-primary float-right">Register now!</button>
                 </div>
                 
-                {% endif %}
                 
-                {% endfor %}
                 
                 
                 <div class="text-center mb-3">
