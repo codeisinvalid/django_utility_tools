@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('domain-search/', include('domainnamechecker.urls')),
+    path('task-manager/', include('taskmanager.urls')),
     
 ]

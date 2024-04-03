@@ -1,0 +1,79 @@
+{% extends 'taskmanager/main.html' %}
+
+
+{% block content %}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="text-center mb-4">
+                <div class="result-card">
+                    <div class="title">Login</div>
+                    <form method = "POST">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            {{form.as_p}}
+                            <div class="input-group-append">
+                                <input class = 'btn btn-sm btn-outline-primary float-right' type="submit" value = "Login">
+                            </div>
+                        </div>
+                    </form>
+                    <p>Don't have an account?<a href="{% url 'register' %}" class="btn btn-sm btn-outline-primary float-right">Register</a></p>
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>
+
+{% comment %} 
+<div class="card-body">
+    <form method = "POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input class = 'button' type="submit" value = "Login">
+    </form>
+    <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+    
+</div>
+
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="text-center mb-4">
+                <h1>Search for a domain name</h1>
+                <p class="lead">Find your perfect domain name for your website or business.</p>
+            </div>
+            <form method="post" id="domain-search-form">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="input-group mb-3">
+                    {{ form.domain_name.errors }}
+                    {{ form.domain_name }}
+                    
+                    <div class="input-group-append">
+                        <button class="btn btn-primary btn-lg" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+    <h5>Your Results</h5>
+                <div class="result-card">
+                    <div class="title">{{domain_name}}</div>
+                    <div class="price">Registrant: <strong>{{whois_info.name}}</strong></div>
+                    <div class="price">Expiration Date: <small>{{expiration_dates_text}}</small></div>
+                    {% for server in whois_info.name_servers %}
+                    <div class="price">Nameserver: <small>{{server}}</small></div>
+                    {% endfor %}
+                    <span class="badge badge-pill badge-danger">NOT AVAILABLE</span>
+                    
+                </div> {% endcomment %}
+{% endblock  %}
+
+
+
