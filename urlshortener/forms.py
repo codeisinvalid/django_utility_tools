@@ -1,7 +1,7 @@
 from django import forms
 
 class UrlShortenForm(forms.Form):
-    domain_name = forms.CharField(
+    original_url = forms.URLField(
         label="Url Name",
         max_length=100,
         widget=forms.TextInput(attrs={
