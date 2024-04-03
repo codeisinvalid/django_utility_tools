@@ -108,13 +108,15 @@
         .selectedTask {
             opacity: 0.6;
         }
-    
-    
+
         #add-link {
             color: #EB796F;
             text-decoration: none;
-            font-size: 42px;
+            font-size: 30px;
             text-shadow: 1px 1px #81413b;
+            
+            margin:5px;
+           
         }
     
         #search-add-wrapper {
@@ -136,7 +138,7 @@
             border: 1px solid #757575;
             border-radius: 5px;
             padding: 10px;
-            width: 90%;
+            width: 80%;
         }
     
         label {
@@ -158,11 +160,29 @@
             border-radius: 5px;
             cursor: pointer;
             text-decoration: none;
+            float: right;
         }
     
         .card-body {
             padding: 20px;
         }
+        
+#search-add-wrapper form {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+#search-add-wrapper form input[type="text"] {
+    width: auto;
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+#search-add-wrapper form input[type="submit"] {
+    width: 100px; /* Adjust the width as needed */
+}
     
     </style>
 
