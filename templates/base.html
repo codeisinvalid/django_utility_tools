@@ -13,6 +13,8 @@
 
     <style>
 
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
@@ -31,8 +33,8 @@
         }
         
         .btn-primary:hover {
-            background-color: #e65c00;
-            border-color: #e65c00;
+            background-color: #ff6600;
+            border-color: #ff6600;
         }
         
         .btn-outline-primary {
@@ -66,97 +68,123 @@
             padding: 4px 8px;
         }
 
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-
-.resize-steps {
-  max-width: 900px;
-  margin: 0 auto;
-  text-align: center;
-  padding: 3rem 2rem;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  font-family: 'Poppins', sans-serif;
-}
-
-.resize-steps h1 {
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
-  color: #333;
-}
-
-.step-container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.step-card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 1rem;
-  width:500px;
-  padding: 1.5rem;
-  background-color: #f8f8f8;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out;
-}
-
-.step-card:hover {
-  transform: translateY(-5px);
-}
-
-.step-icon-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-right: 1.5rem;
-  font-size: 2rem;
-  color: #0077b6;
-}
-
-.step-number {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #0077b6;
-}
-
-.step-content h3 {
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-  color: #333;
-}
-
-.step-content p {
-  font-size: 1.1rem;
-  color: #666;
-}
-
-@media (max-width: 768px) {
-  .resize-steps {
-    padding: 2rem 1rem;
-  }
-
-  .resize-steps h1 {
-    font-size: 2rem;
-  }
-
-  .step-card {
-    flex-direction: column;
-    text-align: center;
-    margin: 1rem 0;
-    padding: 1.5rem 1rem;
-  }
-
-  .step-icon-container {
-    margin-right: 0;
-    margin-bottom: 1rem;
-  }
-}
         
+
+          .resize-steps {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 3rem 2rem;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            font-family: 'Poppins', sans-serif;
+          }
+
+          .resize-steps h1 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #333;
+          }
+          .resize-steps .step-icon i {
+            color: #ff6600; /* Assigning orange color to the icons */
+        }
+
+          .step-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+          }
+
+          .step-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem;
+            width:500px;
+            padding: 1.5rem;
+            background-color: #ff8533;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+          }
+
+          .step-card:hover {
+            transform: translateY(-5px);
+          }
+
+          .step-icon-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.5rem;
+            font-size: 2rem;
+            color: #0077b6;
+          }
+
+          .step-number {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #0077b6;
+          }
+
+          .step-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+          }
+
+          .step-content p {
+            font-size: 1.1rem;
+            color: #666;
+          }
+
+          @media (max-width: 768px) {
+            .resize-steps {
+              padding: 2rem 1rem;
+            }
+
+            .resize-steps h1 {
+              font-size: 2rem;
+            }
+
+            .step-card {
+              flex-direction: column;
+              text-align: center;
+              margin: 1rem 0;
+              padding: 1.5rem 1rem;
+            }
+
+            .step-icon-container {
+              margin-right: 0;
+              margin-bottom: 1rem;
+            }
+          }
+
+
+
+          .resize-options {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        
+        .resize-options h3 {
+            margin-bottom: 20px;
+        }
+        
+        .resize-options .form-group {
+            margin-bottom: 20px;
+        }
+        
+        #previewImage {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
+                  
 
             
         </style>

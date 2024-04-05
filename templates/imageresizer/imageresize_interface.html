@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Retrieve the image source from session storage
+        const imageSrc = sessionStorage.getItem('imageSrc');
+        // Update the src attribute of the preview image
+        const previewImage = document.getElementById('previewImage');
+        if (imageSrc) {
+            previewImage.src = imageSrc;
+        }
+    });
+</script>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="resize-options">
+                <h3>Resize Settings</h3>
+                <div class="form-group">
+                    <label>By Dimensions</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="width" placeholder="Width" value="1142">
+                        <input type="number" class="form-control" id="height" placeholder="Height" value="1600">
+                        <div class="input-group-append">
+                            <select class="custom-select" id="unit">
+                                <option value="px">px</option>
+                                <option value="cm">cm</option>
+                                <option value="in">in</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="lockAspectRatio" checked>
+                        <label class="form-check-label" for="lockAspectRatio">
+                            Lock Aspect Ratio
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>As Percentage</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="widthPercent" placeholder="Width" value="100">
+                        <div class="input-group-append">
+                            <span class="input-group-text">%</span>
+                        </div>
+                        <input type="number" class="form-control" id="heightPercent" placeholder="Height" value="100">
+                        <div class="input-group-append">
+                            <span class="input-group-text">%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Export Settings</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="targetFileSize" placeholder="Target File Size (optional)">
+                        <div class="input-group-append">
+                            <select class="custom-select" id="fileSizeUnit">
+                                <option value="KB">KB</option>
+                                <option value="MB">MB</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <img id="previewImage" src="path/to/your/image.jpg" alt="Preview Image" class="img-fluid">
+        </div>
+    </div>
+    <br>
+    <div class="text-center">
+        <button class="btn btn-primary btn-lg" id="resizeButton">Resize Image</button>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+

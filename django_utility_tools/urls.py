@@ -24,5 +24,5 @@ urlpatterns = [
     path('domain-search/', include('domainnamechecker.urls')),
     path('task-manager/', include('taskmanager.urls')),   
     path('url-shortener/', include('urlshortener.urls')),   
-    path('image-resizer', include('imageresizer.urls')),
+    path('image-resizer/', include('imageresizer.urls')),
 ]

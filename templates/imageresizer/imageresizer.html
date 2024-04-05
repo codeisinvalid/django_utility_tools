@@ -3,8 +3,6 @@
 
 {% block content %}
 
-
-
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-lg-8">
@@ -13,8 +11,8 @@
                 <p class="lead">Instantly resize or crop your images, and download them in JPG, PNG or GIF formats.</p>
                 <button class="btn btn-primary btn-lg" id="resizeBtn">Resize Images Now</button>
             </div>
-            <div class="card shadow-sm text-center">
-                <div class="card-body">
+            <div class="card shadow-sm text-center mb-4">
+                <div class="card-body ">
                     <h5 class="card-title">Resize your images, use them anywhere</h5>
                     <p class="card-text">Change the dimensions of any image in seconds with our free Image Resizer, so it's ready to publish on your site, online store or social media feed.</p>
                     <div class="text-center mb-4">
@@ -35,7 +33,7 @@
                   <div class="step-card">
                     <div class="step-icon-container">
                       <i class="fas fa-mouse-pointer step-icon"></i>
-                      <span class="step-number">1</span>
+                      {% comment %} <span class="step-number">1</span> {% endcomment %}
                     </div>
                     <div class="step-content">
                       <h3>Select</h3>
@@ -45,7 +43,7 @@
                   <div class="step-card">
                     <div class="step-icon-container">
                       <i class="fas fa-crop-alt step-icon"></i>
-                      <span class="step-number">2</span>
+                      {% comment %} <span class="step-number">2</span> {% endcomment %}
                     </div>
                     <div class="step-content">
                       <h3>Resize</h3>
@@ -55,7 +53,7 @@
                   <div class="step-card">
                     <div class="step-icon-container">
                       <i class="fas fa-crop step-icon"></i>
-                      <span class="step-number">3</span>
+                      {% comment %} <span class="step-number">3</span> {% endcomment %}
                     </div>
                     <div class="step-content">
                       <h3>Crop</h3>
@@ -65,7 +63,7 @@
                   <div class="step-card">
                     <div class="step-icon-container">
                       <i class="fas fa-download step-icon"></i>
-                      <span class="step-number">4</span>
+                      {% comment %} <span class="step-number">4</span> {% endcomment %}
                     </div>
                     <div class="step-content">
                       <h3>Download</h3>
@@ -74,23 +72,9 @@
                   </div>
                 </div>
               </div>
-
-
-
-        </div>
-
-
-        
-    </div>
-
-
-    
+        </div>  
+    </div>   
 </div>
-
-
-
-
-
 
 <script>
     const imageUpload = document.getElementById('imageUpload');
@@ -111,13 +95,30 @@
                 img.style.display = 'block'; // Make sure the image displays as a block element
                 img.style.margin = 'auto';
                 imagePreview.appendChild(img);
+
+                // Create and append the button
+                const button = document.createElement('button');
+                button.textContent = 'Open Editor';
+                button.style.marginTop = '20px'; // Set your button text here
+                button.classList.add('btn', 'btn-primary','btn-lg'); // Add Bootstrap button classes
+                button.addEventListener('click', function() {
+                    // Your button click event handler
+                    const imageSrc = img.src; // Get the image source
+        // Store the image source in session storage
+                    console.log('Button clicked!');
+                    sessionStorage.setItem('imageSrc', imageSrc);
+        // Navigate to another page
+        window.location.href = 'editor/';
+                });
+                imagePreview.appendChild(button);
             }
             reader.readAsDataURL(file);
         }
         resizeOptions.style.display = 'block';
     });
-</script>
 
+
+</script>
 
 
 {% endblock content %}
