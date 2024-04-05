@@ -18,14 +18,22 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+        .navbar {
+          background-color: #ff6600 !important; /* Set the background color to #ff6600 */
+      }
         
         .navbar-brand {
             font-weight: bold;
+            color: #ffffff !important;
         }
         
         .nav-link {
             font-weight: 500;
+            color: #ffffff !important;
         }
+        .navbar-brand:hover, .nav-link:hover {
+          color: #f8f9fa !important; /* Change text color on hover */
+      }
         
         .btn-primary {
             background-color: #ff6600;
@@ -66,6 +74,17 @@
         .result-card .badge {
             font-size: 12px;
             padding: 4px 8px;
+        }
+
+        .resize-container {
+          max-width: 900px;
+          margin: 0 auto;
+          /*text-align: center;*/
+          padding: 1rem 1rem;
+          background-color: #fff;
+          border-radius: 12px;
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+          font-family: 'Poppins', sans-serif;
         }
 
         
@@ -162,8 +181,6 @@
             }
           }
 
-
-
           .resize-options {
             background-color: #f8f9fa;
             padding: 20px;
@@ -183,11 +200,23 @@
             height: auto;
             border: 1px solid #ddd;
             padding: 5px;
-        }
-                  
+        }                 
 
+        footer.bg-dark {
+          background-color: #ff6600 !important; /* Dark background color */
+          color: #fff !important; /* White text color */
+      }
+      
+      footer.bg-dark a {
+          color: #fff !important; /* White link color */
+      }
+      
+      footer.bg-dark a:hover {
+          color: #ccc !important; /* Light gray link color on hover */
+      }
             
         </style>
+
 
 </head>
 <body>

@@ -2,6 +2,16 @@
 {% load static %}
 {% block content %}
 
+<style>
+    .aside-container {
+        height: 80vh;
+        overflow-y: auto;
+    }
+    .image-preview {
+        max-width: 100%;
+        max-height: 400px;
+    }
+</style>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -17,80 +27,119 @@
 
 <div class="container my-5">
     <div class="row">
-        <div class="col-md-8">
-            <div class="resize-options">
-                <h3>Resize Settings</h3>
-                <div class="form-group">
-                    <label>By Dimensions</label>
-                    <div class="input-group">
-                        <input type="number" class="form-control" id="width" placeholder="Width" value="1142">
-                        <input type="number" class="form-control" id="height" placeholder="Height" value="1600">
-                        <div class="input-group-append">
-                            <select class="custom-select" id="unit">
-                                <option value="px">px</option>
-                                <option value="cm">cm</option>
-                                <option value="in">in</option>
+        <div class="col-md-3 resize-container">
+            <div class="aside-container">
+                <div class="list-group ">
+                    <a href="#" class="list-group-item list-group-item-action active" data-toggle="list" role="tab" aria-controls="resize">Resize</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-toggle="list" role="tab" aria-controls="crop">Crop</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-toggle="list" role="tab" aria-controls="flip-rotate">Flip & Rotate</a>
+                </div>
+
+                <br>
+                <br>
+
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="resize" role="tabpanel">
+                        <!-- Resize options -->
+                        <div class="form-group">
+                            <label for="width">Width</label>
+                            <input type="number" class="form-control" id="width" placeholder="Enter width">
+                        </div>
+                        <div class="form-group">
+                            <label for="height">Height</label>
+                            <input type="number" class="form-control" id="height" placeholder="Enter height">
+                        </div>
+                        <button class="btn btn-primary">Resize Image</button>
+                    </div>
+                    <div class="tab-pane fade" id="crop" role="tabpanel">
+                        <!-- Crop options -->
+                        <div class="form-group">
+                            <label for="cropWidth">Width</label>
+                            <input type="number" class="form-control" id="cropWidth" placeholder="Enter width">
+                        </div>
+                        <div class="form-group">
+                            <label for="cropHeight">Height</label>
+                            <input type="number" class="form-control" id="cropHeight" placeholder="Enter height">
+                        </div>
+                        <div class="form-group">
+                            <label for="aspectRatio">Aspect Ratio</label>
+                            <select class="form-control" id="aspectRatio">
+                                <option value="freeform">Free Form</option>
+                                <option value="16:9">16:9</option>
+                                <option value="4:3">4:3</option>
+                                <option value="1:1">Square</option>
+                                <option value="original">Original</option>
                             </select>
                         </div>
+                        <button class="btn btn-primary">Crop Image</button>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="lockAspectRatio" checked>
-                        <label class="form-check-label" for="lockAspectRatio">
-                            Lock Aspect Ratio
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>As Percentage</label>
-                    <div class="input-group">
-                        <input type="number" class="form-control" id="widthPercent" placeholder="Width" value="100">
-                        <div class="input-group-append">
-                            <span class="input-group-text">%</span>
-                        </div>
-                        <input type="number" class="form-control" id="heightPercent" placeholder="Height" value="100">
-                        <div class="input-group-append">
-                            <span class="input-group-text">%</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Export Settings</label>
-                    <div class="input-group">
-                        <input type="number" class="form-control" id="targetFileSize" placeholder="Target File Size (optional)">
-                        <div class="input-group-append">
-                            <select class="custom-select" id="fileSizeUnit">
-                                <option value="KB">KB</option>
-                                <option value="MB">MB</option>
-                            </select>
-                        </div>
+                    <div class="tab-pane fade" id="flip-rotate" role="tabpanel">
+                        <!-- Flip and Rotate options -->
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <img id="previewImage" src="path/to/your/image.jpg" alt="Preview Image" class="img-fluid">
+        <div class="resize-container">
+            {% comment %} <div class="tab-content">
+                <div class="tab-pane fade show active" id="resize" role="tabpanel">
+                    <!-- Resize options -->
+                    <div class="form-group">
+                        <label for="width">Width</label>
+                        <input type="number" class="form-control" id="width" placeholder="Enter width">
+                    </div>
+                    <div class="form-group">
+                        <label for="height">Height</label>
+                        <input type="number" class="form-control" id="height" placeholder="Enter height">
+                    </div>
+                    <button class="btn btn-primary">Resize Image</button>
+                </div>
+                <div class="tab-pane fade" id="crop" role="tabpanel">
+                    <!-- Crop options -->
+                    <div class="form-group">
+                        <label for="cropWidth">Width</label>
+                        <input type="number" class="form-control" id="cropWidth" placeholder="Enter width">
+                    </div>
+                    <div class="form-group">
+                        <label for="cropHeight">Height</label>
+                        <input type="number" class="form-control" id="cropHeight" placeholder="Enter height">
+                    </div>
+                    <div class="form-group">
+                        <label for="aspectRatio">Aspect Ratio</label>
+                        <select class="form-control" id="aspectRatio">
+                            <option value="freeform">Free Form</option>
+                            <option value="16:9">16:9</option>
+                            <option value="4:3">4:3</option>
+                            <option value="1:1">Square</option>
+                            <option value="original">Original</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary">Crop Image</button>
+                </div>
+                <div class="tab-pane fade" id="flip-rotate" role="tabpanel">
+                    <!-- Flip and Rotate options -->
+                </div>
+            </div> {% endcomment %}
+            <div class="mt-4">
+                <img id="previewImage" src="{% static 'placeholder.jpg' %}" class="image-preview" alt="Image Preview">
+            </div>
         </div>
-    </div>
-    <br>
-    <div class="text-center">
-        <button class="btn btn-primary btn-lg" id="resizeButton">Resize Image</button>
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('[data-toggle="list"]').on('click', function() {
+            var target = $(this).attr('aria-controls');
+            $('.tab-pane').removeClass('show active');
+            $('#' + target).addClass('show active');
 
-
-
-
-
-
+            // Reset input fields when switching tabs
+            $('#cropWidth, #cropHeight').val('');
+            $('#aspectRatio').val('freeform');
+        });
+    });
+</script>
 
 {% endblock content %}
-
-
-
-
-
-
-
-
-
