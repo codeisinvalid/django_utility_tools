@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="text-center mb-4">
+                <h1 class="display-4">Free Image Resizer</h1>
+                <p class="lead">Instantly resize or crop your images, and download them in JPG, PNG or GIF formats.</p>
+                <button class="btn btn-primary btn-lg" id="resizeBtn">Resize Images Now</button>
+            </div>
+            <div class="card shadow-sm text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Resize your images, use them anywhere</h5>
+                    <p class="card-text">Change the dimensions of any image in seconds with our free Image Resizer, so it's ready to publish on your site, online store or social media feed.</p>
+                    <div class="text-center mb-4">
+                        <label for="imageUpload" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-upload"></i> Upload images from your device
+                        </label>
+                        <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;">
+                    </div>
+                    <div id="imagePreview" class="text-center mb-4"></div>
+                    <div id="resizeOptions" style="display: none;">
+                        <!-- Add resize options here -->
+                    </div>
+                </div>
+            </div>
+            <div class="resize-steps">
+                <h1>Resize Your Images in 4 Simple Steps</h1>
+                <div class="step-container">
+                  <div class="step-card">
+                    <div class="step-icon-container">
+                      <i class="fas fa-mouse-pointer step-icon"></i>
+                      <span class="step-number">1</span>
+                    </div>
+                    <div class="step-content">
+                      <h3>Select</h3>
+                      <p>Pick up to 6 images or photos you want to resize.</p>
+                    </div>
+                  </div>
+                  <div class="step-card">
+                    <div class="step-icon-container">
+                      <i class="fas fa-crop-alt step-icon"></i>
+                      <span class="step-number">2</span>
+                    </div>
+                    <div class="step-content">
+                      <h3>Resize</h3>
+                      <p>Choose the dimensions and file format you want.</p>
+                    </div>
+                  </div>
+                  <div class="step-card">
+                    <div class="step-icon-container">
+                      <i class="fas fa-crop step-icon"></i>
+                      <span class="step-number">3</span>
+                    </div>
+                    <div class="step-content">
+                      <h3>Crop</h3>
+                      <p>Use the built-in crop tool to rotate or crop your image.</p>
+                    </div>
+                  </div>
+                  <div class="step-card">
+                    <div class="step-icon-container">
+                      <i class="fas fa-download step-icon"></i>
+                      <span class="step-number">4</span>
+                    </div>
+                    <div class="step-content">
+                      <h3>Download</h3>
+                      <p>Save your resized images directly to your device.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+        </div>
+
+
+        
+    </div>
+
+
+    
+</div>
+
+
+
+
+
+
+<script>
+    const imageUpload = document.getElementById('imageUpload');
+    const imagePreview = document.getElementById('imagePreview');
+    const resizeOptions = document.getElementById('resizeOptions');
+
+    imageUpload.addEventListener('change', function() {
+        const files = this.files;
+        imagePreview.innerHTML = '';
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const reader = new FileReader();
+            reader.onload = function() {
+                const img = document.createElement('img');
+                img.src = reader.result;
+                img.style.maxWidth = '250px'; // Limit the maximum width of the image
+                img.style.height = 'auto'; // Allow the height to adjust proportionally
+                img.style.display = 'block'; // Make sure the image displays as a block element
+                img.style.margin = 'auto';
+                imagePreview.appendChild(img);
+            }
+            reader.readAsDataURL(file);
+        }
+        resizeOptions.style.display = 'block';
+    });
+</script>
+
+
+
+{% endblock content %}
+
+
+
+
+
+
+
