@@ -2,7 +2,14 @@
 {% load static %}
 {% block content %}
 
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+
 <style>
+    .list-group-item.active {
+        background-color: #ff6600; /* Change the background color as desired */
+        border-color: #ff6600; /* Change the border color to match */
+    }
     .aside-container {
         height: 80vh;
         overflow-y: auto;
@@ -11,19 +18,29 @@
         max-width: 100%;
         max-height: 400px;
     }
-</style>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Retrieve the image source from session storage
-        const imageSrc = sessionStorage.getItem('imageSrc');
-        // Update the src attribute of the preview image
-        const previewImage = document.getElementById('previewImage');
-        if (imageSrc) {
-            previewImage.src = imageSrc;
-        }
-    });
-</script>
+    .btn-group-lg {
+        display: flex;
+        justify-content: space-between; /* Horizontally distribute the buttons */
+        align-items: center; /* Vertically center the buttons */
+    }
+    
+    .btn-group-lg > .btn {
+        height: 60px; /* Adjust the height of the buttons */
+        padding-top: 5px; /* Adjust the top padding for the icon alignment */
+        padding-bottom: 5px; /* Adjust the bottom padding for the icon alignment */
+        width: 50%; /* Share the width of the container */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin:5px;
+    }
+    
+    .btn-group-lg > .btn i {
+        font-size: 24px; /* Adjust the icon size */
+    }
+</style>
 
 <div class="container my-5">
     <div class="row">
@@ -34,32 +51,75 @@
                     <a href="#" class="list-group-item list-group-item-action" data-toggle="list" role="tab" aria-controls="crop">Crop</a>
                     <a href="#" class="list-group-item list-group-item-action" data-toggle="list" role="tab" aria-controls="flip-rotate">Flip & Rotate</a>
                 </div>
-
                 <br>
                 <br>
-
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="resize" role="tabpanel">
                         <!-- Resize options -->
+                        <!-- Add resize options here -->
+                        <h4>Resize settings</h4>
+                        <hr>
                         <div class="form-group">
                             <label for="width">Width</label>
-                            <input type="number" class="form-control" id="width" placeholder="Enter width">
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="resizeWidth" placeholder="Enter width">
+                                    
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="height">Height</label>
-                            <input type="number" class="form-control" id="height" placeholder="Enter height">
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="resizeHeight" placeholder="Enter width">
+                                    
+                            </div>
                         </div>
                         <button class="btn btn-primary">Resize Image</button>
                     </div>
                     <div class="tab-pane fade" id="crop" role="tabpanel">
                         <!-- Crop options -->
+                        <!-- Add crop options here -->
+
+
+
+                        {% comment %} <div class="form-group">
+                            <h5>Flip Image</h5>
+                            <div class="btn-group btn-group-lg">
+                                <label for="cropWidth"></label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="cropWidth" placeholder="Width">
+                                        
+                                </div>
+                                
+                                <label for="cropHeight"></label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="cropHeight" placeholder="Height">
+                                        
+                                </div>
+                            </div>
+                        </div> {% endcomment %}
+
+
+                        <h4>Crop settings</h4>
+                        <hr>
+
+
+                        
+
+
                         <div class="form-group">
                             <label for="cropWidth">Width</label>
-                            <input type="number" class="form-control" id="cropWidth" placeholder="Enter width">
-                        </div>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="cropWidth" placeholder="Enter width">
+                                    
+                            </div>
+                            
+                        </div> 
                         <div class="form-group">
                             <label for="cropHeight">Height</label>
-                            <input type="number" class="form-control" id="cropHeight" placeholder="Enter height">
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="cropHeight" placeholder="Enter height">
+                                    
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="aspectRatio">Aspect Ratio</label>
@@ -75,70 +135,136 @@
                     </div>
                     <div class="tab-pane fade" id="flip-rotate" role="tabpanel">
                         <!-- Flip and Rotate options -->
+                        <!-- Add flip and rotate options here -->
+                        <h4>Flip and Rotate</h4>
+                        <hr>
+                        <div class="form-group">
+                            <h5>Flip Image</h5>
+                            <div class="btn-group btn-group-lg">
+                                <button type="button" class="btn btn-outline-primary">
+                                    <i class="fas fa-arrows-alt-h"></i>
+                                </button>
+                                
+                                <button type="button" class="btn btn-outline-primary">
+                                    <i class="fas fa-arrows-alt-v"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h5>Rotate Image</h5>
+                            <div class="btn-group btn-group-lg" role="group" aria-label="Rotate Image">
+                                <button type="button" class="btn btn-outline-primary mr-2"><i class="fas fa-undo"></i></button>
+                                <button type="button" class="btn btn-outline-primary"><i class="fas fa-redo"></i></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="resize-container">
-            {% comment %} <div class="tab-content">
-                <div class="tab-pane fade show active" id="resize" role="tabpanel">
-                    <!-- Resize options -->
-                    <div class="form-group">
-                        <label for="width">Width</label>
-                        <input type="number" class="form-control" id="width" placeholder="Enter width">
-                    </div>
-                    <div class="form-group">
-                        <label for="height">Height</label>
-                        <input type="number" class="form-control" id="height" placeholder="Enter height">
-                    </div>
-                    <button class="btn btn-primary">Resize Image</button>
-                </div>
-                <div class="tab-pane fade" id="crop" role="tabpanel">
-                    <!-- Crop options -->
-                    <div class="form-group">
-                        <label for="cropWidth">Width</label>
-                        <input type="number" class="form-control" id="cropWidth" placeholder="Enter width">
-                    </div>
-                    <div class="form-group">
-                        <label for="cropHeight">Height</label>
-                        <input type="number" class="form-control" id="cropHeight" placeholder="Enter height">
-                    </div>
-                    <div class="form-group">
-                        <label for="aspectRatio">Aspect Ratio</label>
-                        <select class="form-control" id="aspectRatio">
-                            <option value="freeform">Free Form</option>
-                            <option value="16:9">16:9</option>
-                            <option value="4:3">4:3</option>
-                            <option value="1:1">Square</option>
-                            <option value="original">Original</option>
-                        </select>
-                    </div>
-                    <button class="btn btn-primary">Crop Image</button>
-                </div>
-                <div class="tab-pane fade" id="flip-rotate" role="tabpanel">
-                    <!-- Flip and Rotate options -->
-                </div>
-            </div> {% endcomment %}
             <div class="mt-4">
-                <img id="previewImage" src="{% static 'placeholder.jpg' %}" class="image-preview" alt="Image Preview">
+                <img id="previewImage" src="" class="image-preview" alt="Image Preview">
             </div>
         </div>
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('[data-toggle="list"]').on('click', function() {
-            var target = $(this).attr('aria-controls');
-            $('.tab-pane').removeClass('show active');
-            $('#' + target).addClass('show active');
 
-            // Reset input fields when switching tabs
-            $('#cropWidth, #cropHeight').val('');
-            $('#aspectRatio').val('freeform');
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Retrieve the image source from session storage
+        const imageSrc = sessionStorage.getItem('imageSrc');
+        // Update the src attribute of the preview image
+        const previewImage = document.getElementById('previewImage');
+        if (imageSrc) {
+            previewImage.src = imageSrc;
+        }
+        let cropper = null;
+
+        $('[data-toggle="list"]').on('click', function() {
+            const target = $(this).attr('aria-controls');
+            const tabContent = $('#' + target);
+            $('.tab-pane').removeClass('show active');
+            tabContent.addClass('show active');
+            
+            // Destroy Cropper.js instance if not on "Crop" tab
+            if (target !== 'crop') {
+                if (cropper) {
+                    cropper.destroy();
+                    cropper = null;
+                }
+            } else {
+                // Initialize Cropper.js when the "Crop" tab is active
+                if (!cropper) {
+                    cropper = new Cropper(previewImage, {
+                        aspectRatio: NaN,
+                        viewMode: 2,
+                        autoCropArea: 0.8,
+                        guides: true,
+                        movable: true,
+                        zoomable: true,
+                        scalable: true,
+                        rotatable: true,
+                        crop: function(event) {
+                            // Access crop data: event.detail.x, event.detail.y, event.detail.width, event.detail.height
+                            const cropWidthInput = document.getElementById('cropWidth');
+                            const cropHeightInput = document.getElementById('cropHeight');
+                            if (cropWidthInput && cropHeightInput) {
+                                cropWidthInput.value = event.detail.width;
+                                cropHeightInput.value = event.detail.height;
+                            }
+                            saveCropDataToServer(event.detail);
+                        }
+                    });
+                }
+            }
         });
+
+        function saveCropDataToServer(cropData) {
+            // Get the CSRF token from the cookie
+            const csrftoken = getCookie('csrftoken');
+        
+            // Get the current URL
+            var currentUrl = window.location.href;
+        
+            // Send crop data to the server using AJAX
+            $.ajax({
+                url: currentUrl, // Use the current URL as the endpoint
+                method: 'POST',
+                data: cropData,
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken); // Set CSRF token in the request header
+                },
+                success: function(response) {
+                    console.log('Crop data saved successfully:', cropData);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error saving crop data:', error);
+                }
+            });
+        }
+        
+        // Function to retrieve CSRF token from cookie
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Check if the cookie contains the CSRF token
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        
     });
 </script>
 
