@@ -235,7 +235,7 @@
             $.ajax({
                 url: currentUrl, // Use the current URL as the endpoint
                 method: 'POST',
-                data: cropData,
+                data: JSON.stringify(cropData),
                 beforeSend: function(xhr) {
                     xhr.setRequestHeader("X-CSRFToken", csrftoken); // Set CSRF token in the request header
                 },
@@ -267,5 +267,9 @@
         
     });
 </script>
+
+
+
+
 
 {% endblock content %}
