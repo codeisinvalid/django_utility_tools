@@ -18,7 +18,7 @@ def image_editor(request):
         try:
             # Get the crop data from the request body
             crop_data = json.loads(request.body)
-            print(crop_data)
+            # print(crop_data)
             x = crop_data['x']
             y = crop_data['y']
             height = crop_data['height']
@@ -26,7 +26,8 @@ def image_editor(request):
             scaleX = crop_data['scaleX']
             scaleY = crop_data['scaleY']
             rotate = crop_data['rotate']
-            print(x)
+           
+            
 
             # Process the crop data as needed
             # ...

@@ -44,7 +44,9 @@
 
 <div class="container my-5">
     <div class="row">
-        <div class="col-md-3 resize-container">
+
+        
+        <div class="col-md-3">
             <div class="aside-container">
                 <div class="list-group ">
                     <a href="#" class="list-group-item list-group-item-action active" data-toggle="list" role="tab" aria-controls="resize">Resize</a>
@@ -79,32 +81,8 @@
                         <!-- Crop options -->
                         <!-- Add crop options here -->
 
-
-
-                        {% comment %} <div class="form-group">
-                            <h5>Flip Image</h5>
-                            <div class="btn-group btn-group-lg">
-                                <label for="cropWidth"></label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control" id="cropWidth" placeholder="Width">
-                                        
-                                </div>
-                                
-                                <label for="cropHeight"></label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control" id="cropHeight" placeholder="Height">
-                                        
-                                </div>
-                            </div>
-                        </div> {% endcomment %}
-
-
-                        <h4>Crop settings</h4>
+                        <h5>Crop Rectangle</h5>
                         <hr>
-
-
-                        
-
 
                         <div class="form-group">
                             <label for="cropWidth">Width</label>
@@ -131,6 +109,26 @@
                                 <option value="original">Original</option>
                             </select>
                         </div>
+
+                        <br>
+                        <h5>Crop Position</h5>
+                        <hr>
+                        <div class="form-group">
+                            <label for="scaleX">ScaleX</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="scaleX" placeholder="Enter width">
+                                    
+                            </div>
+                            
+                        </div> 
+                        
+                        <div class="form-group">
+                            <label for="scaleY">ScaleY</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="scaleY" placeholder="Enter height">
+                                    
+                            </div>
+                        </div>
                         <button class="btn btn-primary">Crop Image</button>
                     </div>
                     <div class="tab-pane fade" id="flip-rotate" role="tabpanel">
@@ -141,11 +139,11 @@
                         <div class="form-group">
                             <h5>Flip Image</h5>
                             <div class="btn-group btn-group-lg">
-                                <button type="button" class="btn btn-outline-primary">
+                                <button type="button" class="btn btn-outline-primary" id="flipHorizontal">
                                     <i class="fas fa-arrows-alt-h"></i>
                                 </button>
                                 
-                                <button type="button" class="btn btn-outline-primary">
+                                <button type="button" class="btn btn-outline-primary" id="flipVertical">
                                     <i class="fas fa-arrows-alt-v"></i>
                                 </button>
                             </div>
@@ -153,19 +151,28 @@
                         <div class="form-group">
                             <h5>Rotate Image</h5>
                             <div class="btn-group btn-group-lg" role="group" aria-label="Rotate Image">
-                                <button type="button" class="btn btn-outline-primary mr-2"><i class="fas fa-undo"></i></button>
-                                <button type="button" class="btn btn-outline-primary"><i class="fas fa-redo"></i></button>
+                                <button type="button" class="btn btn-outline-primary mr-2" id="rotateLeft">
+                                    <i class="fas fa-undo"></i>
+                                </button>
+                                <button type="button" class="btn btn-outline-primary" id="rotateRight">
+                                    <i class="fas fa-redo"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="resize-container">
-            <div class="mt-4">
-                <img id="previewImage" src="" class="image-preview" alt="Image Preview">
-            </div>
+        <div class = "col-md-8 text-center">
+            <div class="aside-container">
+                <div class="mt-4">
+                    <hr>
+                    <img id="previewImage" src="" class="image-preview" alt="Image Preview">
+                </div>
+            </div>  
         </div>
+        
+        
     </div>
 </div>
 
@@ -176,14 +183,80 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
+
         // Retrieve the image source from session storage
         const imageSrc = sessionStorage.getItem('imageSrc');
         // Update the src attribute of the preview image
         const previewImage = document.getElementById('previewImage');
+
         if (imageSrc) {
             previewImage.src = imageSrc;
         }
+
         let cropper = null;
+        let isFlippedHorizontal =  false;
+        let isFlippedVertical = false;
+        let totalRotationAngle = 0;
+
+        function flipHorizontal(){
+            if(isFlippedHorizontal){
+                previewImage.style.transform = "scaleX(1)"
+            }
+            else{
+                previewImage.style.transform = "scaleX(-1)";
+            }
+            isFlippedHorizontal = !isFlippedHorizontal;
+        }
+
+        function flipVertical(){
+            if(isFlippedVertical){
+                previewImage.style.transform = "scaleY(1)"
+            }
+            
+            else{
+                previewImage.style.transform = "scaleY(-1)";
+            }
+            isFlippedVertical = !isFlippedVertical;
+        }
+
+        function rotateLeft(){
+            totalRotationAngle -= 90;
+            previewImage.style.transform =  `rotate(${totalRotationAngle}deg)`;
+        }
+
+        function rotateRight(){
+            totalRotationAngle += 90;
+            previewImage.style.transform =  `rotate(${totalRotationAngle}deg)`;
+        }
+
+
+        // Flip buttons event listeners
+        document.getElementById('flipHorizontal').addEventListener('click', flipHorizontal);
+        document.getElementById('flipVertical').addEventListener('click', flipVertical);
+        // Rotate buttons event listeners
+        document.getElementById('rotateLeft').addEventListener('click', rotateLeft);
+        document.getElementById('rotateRight').addEventListener('click', rotateRight);
+
+
+
+        // Function to retrieve CSRF token from cookie
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Check if the cookie contains the CSRF token
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        
+        
 
         $('[data-toggle="list"]').on('click', function() {
             const target = $(this).attr('aria-controls');
@@ -223,6 +296,7 @@
                 }
             }
         });
+        
 
         function saveCropDataToServer(cropData) {
             // Get the CSRF token from the cookie
@@ -247,23 +321,7 @@
                 }
             });
         }
-        
-        // Function to retrieve CSRF token from cookie
-        function getCookie(name) {
-            var cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                var cookies = document.cookie.split(';');
-                for (var i = 0; i < cookies.length; i++) {
-                    var cookie = cookies[i].trim();
-                    // Check if the cookie contains the CSRF token
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
+  
         
     });
 </script>
