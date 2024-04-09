@@ -86,50 +86,87 @@
         </div>  
     </div>   
 </div>
-
 <script>
-    const imageUpload = document.getElementById('imageUpload');
-    const imagePreview = document.getElementById('imagePreview');
-    const resizeOptions = document.getElementById('resizeOptions');
+  const imageUpload = document.getElementById('imageUpload');
+  const imagePreview = document.getElementById('imagePreview');
+  const resizeOptions = document.getElementById('resizeOptions');
+  var currentUrl = window.location.href;
 
-    imageUpload.addEventListener('change', function() {
-        const files = this.files;
-        imagePreview.innerHTML = '';
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            const reader = new FileReader();
-            reader.onload = function() {
-                const img = document.createElement('img');
-                img.src = reader.result;
-                img.style.maxWidth = '250px'; // Limit the maximum width of the image
-                img.style.height = 'auto'; // Allow the height to adjust proportionally
-                img.style.display = 'block'; // Make sure the image displays as a block element
-                img.style.margin = 'auto';
-                imagePreview.appendChild(img);
+  // Function to retrieve CSRF token from cookie
+  function getCookie(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          var cookies = document.cookie.split(';');
+          for (var i = 0; i < cookies.length; i++) {
+              var cookie = cookies[i].trim();
+              // Check if the cookie contains the CSRF token
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
 
-                // Create and append the button
-                const button = document.createElement('button');
-                button.textContent = 'Open Editor';
-                button.style.marginTop = '20px'; // Set your button text here
-                button.classList.add('btn', 'btn-primary','btn-lg'); // Add Bootstrap button classes
-                button.addEventListener('click', function() {
-                    // Your button click event handler
-                    const imageSrc = img.src; // Get the image source
-        // Store the image source in session storage
-                    console.log('Button clicked!');
-                    sessionStorage.setItem('imageSrc', imageSrc);
-        // Navigate to another page
-        window.location.href = 'editor/';
-                });
-                imagePreview.appendChild(button);
-            }
-            reader.readAsDataURL(file);
-        }
-        resizeOptions.style.display = 'block';
-    });
+  // Get the CSRF token from the cookie
+  const csrftoken = getCookie('csrftoken');
 
+  imageUpload.addEventListener('change', function() {
+      const files = this.files;
+      imagePreview.innerHTML = '';
+      for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          const reader = new FileReader();
+          reader.onload = function() {
+              const img = document.createElement('img');
+              img.src = reader.result;
+              img.style.maxWidth = '250px'; // Limit the maximum width of the image
+              img.style.height = 'auto'; // Allow the height to adjust proportionally
+              img.style.display = 'block'; // Make sure the image displays as a block element
+              img.style.margin = 'auto';
+              imagePreview.appendChild(img);
 
+              // Create and append the button
+              const button = document.createElement('button');
+              button.textContent = 'Open Editor';
+              button.style.marginTop = '20px'; // Set your button text here
+              button.classList.add('btn', 'btn-primary', 'btn-lg'); // Add Bootstrap button classes
+              button.addEventListener('click', function() {
+                  // Your button click event handler
+                  const imageSrc = img.src; // Get the image source
+                  // Store the image source in session storage
+                  console.log('Button clicked!');
+                  sessionStorage.setItem('imageSrc', imageSrc);
+                  
+                  // Send the image data to Django backend
+                  $.ajax({
+                      url: currentUrl,
+                      method: 'POST',
+                      contentType: 'application/json', // Set content type to JSON
+                      data: imageSrc, // Send the stringified data
+                      beforeSend: function(xhr) {
+                          xhr.setRequestHeader("X-CSRFToken", csrftoken); // Set CSRF token in the request header
+                      },
+                      success: function(response) {
+                          console.log('Image uploaded successfully', imageSrc);
+                      },
+                      error: function(xhr, status, error) {
+                          console.error('Error uploading image:', error);
+                      }
+                  });
+
+                  // Navigate to another page
+                  window.location.href = 'editor/';
+              });
+              imagePreview.appendChild(button);
+          }
+          reader.readAsDataURL(file);
+      }
+      resizeOptions.style.display = 'block';
+  });
 </script>
+
 
 
 {% endblock content %}

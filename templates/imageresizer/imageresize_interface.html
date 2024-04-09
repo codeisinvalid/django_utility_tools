@@ -40,13 +40,27 @@
     .btn-group-lg > .btn i {
         font-size: 24px; /* Adjust the icon size */
     }
+    .image-preview-container {
+        border:2px solid #ccc;
+        border-radius: 10px;
+        max-height: 80vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+    }
+    .image-preview {
+        max-width: 100%;
+        object-fit: scale-down;
+        
+    }
+    
+    
 </style>
 
 <div class="container my-5">
     <div class="row">
-
-        
-        <div class="col-md-3">
+        <div class="col-md-3 pt-5 pb-5 ">
             <div class="aside-container">
                 <div class="list-group ">
                     <a href="#" class="list-group-item list-group-item-action active" data-toggle="list" role="tab" aria-controls="resize">Resize</a>
@@ -163,19 +177,18 @@
                 </div>
             </div>
         </div>
-        <div class = "col-md-8 text-center">
-            <div class="aside-container">
-                <div class="mt-4">
-                    <hr>
-                    <img id="previewImage" src="" class="image-preview" alt="Image Preview">
-                </div>
-            </div>  
-        </div>
-        
-        
+        <div class = "col-md-9">
+                <div class="image-preview-container my-5 pt-5 pb-5"> 
+                    <div>
+                        <img id="previewImage" src="" class="image-preview" alt="Image Preview">
+                    </div>
+
+                </div>  
+                
+                
+        </div>   
     </div>
 </div>
-
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
@@ -188,10 +201,19 @@
         const imageSrc = sessionStorage.getItem('imageSrc');
         // Update the src attribute of the preview image
         const previewImage = document.getElementById('previewImage');
+        
 
         if (imageSrc) {
             previewImage.src = imageSrc;
         }
+
+        function updateImageSrc(src){
+            previewImage.src = src;
+            // Update sessionStorage with the new image source
+            sessionStorage.setItem('imageSrc', src);
+
+        }
+        
 
         let cropper = null;
         let isFlippedHorizontal =  false;
@@ -205,7 +227,10 @@
             else{
                 previewImage.style.transform = "scaleX(-1)";
             }
+
             isFlippedHorizontal = !isFlippedHorizontal;
+            const updatedSrc = previewImage.src;
+            updateImageSrc(updatedSrc);
         }
 
         function flipVertical(){
@@ -217,16 +242,22 @@
                 previewImage.style.transform = "scaleY(-1)";
             }
             isFlippedVertical = !isFlippedVertical;
+            const updatedSrc = previewImage.src;
+            updateImageSrc(updatedSrc);
         }
 
-        function rotateLeft(){
+        function rotateLeft(){           
             totalRotationAngle -= 90;
             previewImage.style.transform =  `rotate(${totalRotationAngle}deg)`;
+            const updatedSrc = previewImage.src;
+            updateImageSrc(updatedSrc);
         }
 
         function rotateRight(){
             totalRotationAngle += 90;
             previewImage.style.transform =  `rotate(${totalRotationAngle}deg)`;
+            const updatedSrc = previewImage.src;
+            updateImageSrc(updatedSrc);
         }
 
 
