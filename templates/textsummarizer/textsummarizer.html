@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h1 class="mb-4">Text Summarizer</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="text">Enter text to summarize:</label>
+            <textarea class="form-control" id="text" name="text" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Summarize</button>
+    </form>
+    <hr>
+    <h2>Summaries</h2>
+    {% for input in inputs %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Input Text</h5>
+                <p class="card-text">{{ input.text }}</p>
+                <h5 class="card-title">Summary</h5>
+                <p class="card-text">{{ input.summary }}</p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+
+{% endblock content %}

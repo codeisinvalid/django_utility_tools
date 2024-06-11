@@ -1,17 +1,19 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from PIL import Image
-import io
 import json
+
+
+
 # Create your views here.
 def image_resizer(request):
     if request.method=="GET":
-
         return render(request, 'imageresizer/imageresizer.html')
+    
     elif request.method=='POST':
         try:
             image_data = request.body
+            request.session['image_data'] = image_data
             return JsonResponse({'success': True, 'message': 'Image data received successfully.'})
         except Exception as e:
             return JsonResponse({'success': False, 'message': str(e)}, status=400)
@@ -23,13 +25,17 @@ def image_resizer(request):
 @csrf_exempt
 def image_editor(request):
     if request.method == 'GET':
+        image_data = request.session.get('image_data', None)
+        # if not image_data:
+        #     return JsonResponse({'success': False, 'message': 'Image data not found in the session'}, status=400)
+        print(image_data)
         # Render the template for the initial page load
         return render(request, 'imageresizer/imageresize_interface.html')
     elif request.method == 'POST':
         try:
             # Get the crop data from the request body
             crop_data = json.loads(request.body)
-            # print(crop_data)
+            
             x = crop_data['x']
             y = crop_data['y']
             height = crop_data['height']

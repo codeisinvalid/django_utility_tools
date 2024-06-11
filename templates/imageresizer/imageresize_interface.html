@@ -207,14 +207,6 @@
             previewImage.src = imageSrc;
         }
 
-        function updateImageSrc(src){
-            previewImage.src = src;
-            // Update sessionStorage with the new image source
-            sessionStorage.setItem('imageSrc', src);
-
-        }
-        
-
         let cropper = null;
         let isFlippedHorizontal =  false;
         let isFlippedVertical = false;
@@ -229,8 +221,6 @@
             }
 
             isFlippedHorizontal = !isFlippedHorizontal;
-            const updatedSrc = previewImage.src;
-            updateImageSrc(updatedSrc);
         }
 
         function flipVertical(){
@@ -242,22 +232,18 @@
                 previewImage.style.transform = "scaleY(-1)";
             }
             isFlippedVertical = !isFlippedVertical;
-            const updatedSrc = previewImage.src;
-            updateImageSrc(updatedSrc);
         }
 
         function rotateLeft(){           
             totalRotationAngle -= 90;
             previewImage.style.transform =  `rotate(${totalRotationAngle}deg)`;
-            const updatedSrc = previewImage.src;
-            updateImageSrc(updatedSrc);
+            
         }
 
         function rotateRight(){
             totalRotationAngle += 90;
             previewImage.style.transform =  `rotate(${totalRotationAngle}deg)`;
-            const updatedSrc = previewImage.src;
-            updateImageSrc(updatedSrc);
+           
         }
 
 
