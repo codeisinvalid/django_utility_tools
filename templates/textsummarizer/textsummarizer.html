@@ -14,8 +14,11 @@
         <button type="submit" class="btn btn-primary">Summarize</button>
     </form>
     <hr>
+    {% if inputs %}
     <h2>Summaries</h2>
+    {% endif %}
     {% for input in inputs %}
+    
         <div class="card mb-3">
             <div class="card-body">
                 <h5 class="card-title">Input Text</h5>

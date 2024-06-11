@@ -1,5 +1,10 @@
+# summarizer/models.py
+
 from django.db import models
 
-class TextInput(models.Model):
+class TextSummary(models.Model):
     text = models.TextField()
-    summary = models.TextField(blank=True)
+    summary = models.TextField()
+
+    def __str__(self):
+        return self.text[:50]  # Return the first 50 characters of the text

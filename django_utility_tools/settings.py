@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'imageresizer',
     'domainnamechecker',
     'taskmanager',
+    'textsummarizer',
 ]
 
 MIDDLEWARE = [
