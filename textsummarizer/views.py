@@ -1,5 +1,4 @@
 # summarizer/views.py
-
 from django.shortcuts import render
 from .forms import TextForm
 from .utils import TextSummarizer
@@ -12,7 +11,7 @@ def summarize_text(request):
             text = form.cleaned_data['text']
             summarizer = TextSummarizer()
             summary = summarizer.summarize(text)
-            
+
             # Save the text and summary to the database
             TextSummary.objects.create(text=text, summary=summary)
     else:
