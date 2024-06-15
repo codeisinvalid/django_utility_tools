@@ -33,21 +33,24 @@ def image_editor(request):
         return render(request, 'imageresizer/imageresize_interface.html')
     elif request.method == 'POST':
         try:
-            # Get the crop data from the request body
-            crop_data = json.loads(request.body)
+            data = json.loads(request.body)
             
-            x = crop_data['x']
-            y = crop_data['y']
-            height = crop_data['height']
-            width = crop_data['width']
-            scaleX = crop_data['scaleX']
-            scaleY = crop_data['scaleY']
-            rotate = crop_data['rotate']
-           
-            
+            if 'crop' in data:
+                crop_data = data['crop']
+                x = crop_data['x']
+                y = crop_data['y']
+                height = crop_data['height']
+                width = crop_data['width']
+                scaleX = crop_data['scaleX']
+                scaleY = crop_data['scaleY']
+                rotate = crop_data['rotate']
+                # Process crop data...
 
-            # Process the crop data as needed
-            # ...
+            if 'resize' in data:
+                resize_data = data['resize']
+                width = resize_data['width']
+                height = resize_data['height']
+                # Process resize data...
 
             # Return a success response
             return JsonResponse({'success': True, 'message': 'Crop data received successfully.'})
